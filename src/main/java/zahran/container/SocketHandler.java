@@ -6,12 +6,16 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.time.LocalDateTime;
+import java.util.Map;
 
 public class SocketHandler extends  Thread{
 
     private Socket socket;
-    public SocketHandler(Socket socket){
+    private Map<String,HttpServlet> handlers;
+
+    public SocketHandler(Socket socket, Map<String,HttpServlet> handlers){
         this.socket = socket;
+        this.handlers = handlers;
     }
 
     @Override
