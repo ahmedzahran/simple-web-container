@@ -42,7 +42,11 @@ public class SimpleWebContainer {
         Properties properties = new Properties();
         properties.load(input);
 
-        properties.forEach((key,value) -> handlers.put((String) key, getServletInstance((String) value) ));
+        properties.forEach((key,value) -> {
+            HttpServlet servlet = getServletInstance((String) value);
+            servlet.init();
+            handlers.put((String) key, servlet);
+        });
     }
 
     private HttpServlet getServletInstance(String className){
