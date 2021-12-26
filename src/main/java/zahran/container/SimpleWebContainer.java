@@ -72,10 +72,10 @@ public class SimpleWebContainer {
             SimpleWebContainer container = new SimpleWebContainer(8886,"config.properties");
             container.loadProperties();
 
-            container.handlers.forEach((url,httpServlet) -> {
-                System.out.println(url);
-                httpServlet.doGet();
-            });
+//            container.handlers.forEach((url,httpServlet) -> {
+//                System.out.println(url);
+//                httpServlet.doGet();
+//            });
 
             container.start();
     }

@@ -23,16 +23,39 @@ public class SocketHandler extends  Thread{
         BufferedReader inputReader = null;
         PrintWriter printWriter = null;
         try {
+
             inputReader = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            printWriter = new PrintWriter(socket.getOutputStream());
 
-            String line = inputReader.readLine();
+            Request request = new Request(inputReader);
 
-            while (! line.isEmpty()){
-                System.out.println(line);
-                line = inputReader.readLine();
+            if (! request.parse()){
+                printWriter.println("Http/1.1 500 Internal Server Error");
+                printWriter.println("Content-type: text/plain");
+                printWriter.println();
+                printWriter.println("<html><body> Cannot process your request </html></body>");
+                printWriter.flush();
             }
 
-            printWriter = new PrintWriter(socket.getOutputStream());
+            System.out.println("Method " + request.getMethod());
+            System.out.println("Path " + request.getPath());
+            request.getRequestParams().forEach((key,value) -> {
+                System.out.println("param name " + key);
+                System.out.println("param value " + value);
+            });
+
+            request.getHeaders().forEach((key,value) -> {
+                System.out.println("header key " + key);
+                System.out.println("header value " + value);
+            });
+//            String line = inputReader.readLine();
+//
+//            while (! line.isEmpty()){
+//                System.out.println(line);
+//                line = inputReader.readLine();
+//            }
+
+            //printWriter = new PrintWriter(socket.getOutputStream());
 
             printWriter.println("Http/1.1 200 OK");
             printWriter.println("Content-type: text/html");
