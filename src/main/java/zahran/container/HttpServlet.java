@@ -27,4 +27,8 @@ public abstract class HttpServlet {
         System.out.println("HttpServlet doPost Default");
 
     }
+
+    public void destroy(){
+        System.out.println("HttpServlet destroy() default");
+    }
 }

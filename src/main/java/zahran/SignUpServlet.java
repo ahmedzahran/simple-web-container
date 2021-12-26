@@ -37,4 +37,9 @@ public class SignUpServlet extends HttpServlet {
         out.println("doPost() method in SignUpServlet");
         out.println("</body></html>");
     }
+
+    @Override
+    public void destroy() {
+        System.out.println("close connection in SignUpServlet destroy() method");
+    }
 }

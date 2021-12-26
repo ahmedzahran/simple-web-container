@@ -72,6 +72,15 @@ public class SimpleWebContainer {
             SimpleWebContainer container = new SimpleWebContainer(8886,"config.properties");
             container.loadProperties();
 
+            Runtime.getRuntime().addShutdownHook(new Thread(){
+                @Override
+                public void run() {
+                    container.handlers.forEach((url,servlet) -> {
+                        servlet.destroy();
+                    });
+                }
+            });
+
 //            container.handlers.forEach((url,httpServlet) -> {
 //                System.out.println(url);
 //                httpServlet.doGet();
