@@ -6,13 +6,24 @@ public abstract class HttpServlet {
         System.out.println("HttpServlet init default");
     }
 
-    public void service(){ //Todo request , response objects
+    public void service(Request request,Response response){
+
+        String method = request.getMethod();
+
+        if ("GET".equals(method)){
+            doGet(request,response);
+        }else if ("POST".equals(method)){
+            doPost(request,response);
+        }else{
+            throw new RuntimeException("method not supported");
+        }
+
     }
-    public void doGet(){
+    public void doGet(Request request,Response response){
         System.out.println("HttpServlet doGet Default");
 
     }
-    public void doPost(){
+    public void doPost(Request request,Response response){
         System.out.println("HttpServlet doPost Default");
 
     }

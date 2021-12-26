@@ -1,6 +1,10 @@
 package zahran;
 
 import zahran.container.HttpServlet;
+import zahran.container.Request;
+import zahran.container.Response;
+
+import java.io.PrintWriter;
 
 public class HelloWorldServlet extends HttpServlet {
 
@@ -10,9 +14,13 @@ public class HelloWorldServlet extends HttpServlet {
         System.out.println("HelloWorldServlet init() method called");
     }
 
-
     @Override
-    public void doGet() {
-        System.out.println("helloWorldServlet doGet");
+    public void doGet(Request request, Response response) {
+
+        PrintWriter out = response.getPrintWriter();
+
+        out.println("<html><body>");
+        out.println("doGet() method in HelloWorldServlet");
+        out.println("</body></html>");
     }
 }

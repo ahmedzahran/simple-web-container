@@ -34,6 +34,9 @@ public class Request {
         return requestParams;
     }
 
+    public String getRequestParam(String name){
+        return requestParams.get(name);
+    }
     //queryString: user=zahran&pwd=123
     private void parseRequestParams(String queryString){
 
@@ -73,7 +76,16 @@ public class Request {
             }
         }
 
-        //TODO: parse post request object into request params
+        if ("POST".equals(method)){
+            StringBuilder body = new StringBuilder();
+
+            while (inputReader.ready()){
+                body.append((char)inputReader.read());
+            }
+
+            parseRequestParams(body.toString());
+
+        }
         return  true;
     }
 }
